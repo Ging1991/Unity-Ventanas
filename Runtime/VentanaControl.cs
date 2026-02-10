@@ -1,7 +1,6 @@
 using System;
 using Ging1991.Core;
 using UnityEngine;
-using Ging1991.General;
 
 namespace Ging1991.Ventanas {
 
@@ -42,7 +41,7 @@ namespace Ging1991.Ventanas {
 
 
 		private static void RevisarRequisitos() {
-			if (GameObject.Find(LIENZO)  == null) {
+			if (GameObject.Find(LIENZO) == null) {
 				throw new Exception($"No se encontro {LIENZO}, creelo en la escena con el nombre correspondiente");
 			}
 		}
