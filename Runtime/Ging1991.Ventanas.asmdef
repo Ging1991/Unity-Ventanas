@@ -3,8 +3,7 @@
 	"rootNamespace": "Ging1991.Ventanas",
 	"references": [
 		"Ging1991.Core",
-		"Ging1991.Interfaces",
-		"Ging1991.Antiguo"
+		"Ging1991.Interfaces"
 	],
 	"includePlatforms": [],
 	"excludePlatforms": [],

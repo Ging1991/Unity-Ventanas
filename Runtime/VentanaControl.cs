@@ -34,6 +34,7 @@ namespace Ging1991.Ventanas {
 			GameObject instancia = Instantiate(objeto, Vector3.zero, Quaternion.identity);
 			instancia.transform.SetParent(GameObject.Find(LIENZO).transform);
 			instancia.transform.localPosition = Vector3.zero;
+			instancia.transform.localScale = Vector3.one;
 			instancia.name = nombre;
 			Bloqueador.BloquearGrupo("GLOBAL", true);
 			return instancia;
@@ -42,7 +43,7 @@ namespace Ging1991.Ventanas {
 
 		private static void RevisarRequisitos() {
 			if (GameObject.Find(LIENZO) == null) {
-				throw new Exception($"No se encontro {LIENZO}, creelo en la escena con el nombre correspondiente");
+				throw new Exception($"No se encontro {LIENZO}, creelo en la escena con el nombre correspondiente");//
 			}
 		}
 
