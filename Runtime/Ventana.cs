@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Ging1991.Ventanas {
 
-	public class Ventana : MonoBehaviour {
+	public class Ventana : MonoBehaviour {//
 
 		private IPresionarBoton accion;
 
