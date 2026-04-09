@@ -1,52 +1,37 @@
-using System;
 using Ging1991.Core;
+using Ging1991.Core.Interfaces;
 using UnityEngine;
 
 namespace Ging1991.Ventanas {
 
 	public class VentanaControl : MonoBehaviour {
 
-		public GameObject ventanaAceptarOBJ;
-		public GameObject ventanaConfirmarOBJ;
-		public GameObject ventanaOpcionMultipleOBJ;
+		public VentanaConfirmar ventanaConfirmar;
+		public VentanaAceptar ventanaAceptar;
 
-		public static string LIENZO = "LienzoVentanas";
-
-		public static GameObject CrearVentanaConfirmar(string mensaje, IPresionarBoton accion = null) {
-			RevisarRequisitos();
-			VentanaControl control = FindAnyObjectByType<VentanaControl>();
-			GameObject ventana = InstanciarVentana(control.ventanaConfirmarOBJ, "VentanaConfirmar");
-			ventana.GetComponent<Ventana>().Inicializar(mensaje, accion);
-			return ventana;
-		}
-
-
-		public static GameObject CrearVentanaAceptar(string mensaje, IPresionarBoton accion = null) {
-			RevisarRequisitos();
-			VentanaControl control = FindAnyObjectByType<VentanaControl>();
-			GameObject ventana = InstanciarVentana(control.ventanaAceptarOBJ, "VentanaAceptar");
-			ventana.GetComponent<Ventana>().Inicializar(mensaje, accion);
-			return ventana;
-		}
-
-
-		private static GameObject InstanciarVentana(GameObject objeto, string nombre) {
-			GameObject instancia = Instantiate(objeto, Vector3.zero, Quaternion.identity);
-			instancia.transform.SetParent(GameObject.Find(LIENZO).transform);
-			instancia.transform.localPosition = Vector3.zero;
-			instancia.transform.localScale = Vector3.one;
-			instancia.name = nombre;
-			Bloqueador.BloquearGrupo("GLOBAL", true);
-			return instancia;
-		}
-
-
-		private static void RevisarRequisitos() {
-			if (GameObject.Find(LIENZO) == null) {
-				throw new Exception($"No se encontro {LIENZO}, creelo en la escena con el nombre correspondiente");//
+		public void MostrarVentanaConfirmar(string mensaje, IEjecutable accionAceptar = null, IEjecutable accionCancelar = null) {
+			if (HayVentanaActiva()) {
+				Debug.LogWarning("Ya hay una ventana activa.");
+				return;
 			}
+			Bloqueador.BloquearGrupo("GLOBAL", true);
+			ventanaConfirmar.gameObject.SetActive(true);
+			ventanaConfirmar.Inicializar(mensaje, accionAceptar, accionCancelar);
 		}
 
+		public void MostrarVentanaAceptar(string mensaje, IEjecutable accion = null) {
+			if (HayVentanaActiva()) {
+				Debug.LogWarning("Ya hay una ventana activa.");
+				return;
+			}
+			Bloqueador.BloquearGrupo("GLOBAL", true);
+			ventanaAceptar.gameObject.SetActive(true);
+			ventanaAceptar.Inicializar(mensaje, accion);
+		}
+
+		public bool HayVentanaActiva() {
+			return ventanaConfirmar.gameObject.activeSelf || ventanaAceptar.gameObject.activeSelf;
+		}
 
 	}
 
